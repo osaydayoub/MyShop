@@ -50,7 +50,7 @@ function SignUp() {
 
             // handleUpdateUser();
             console.log('SignUp before navigate!')
-            navigate('/');
+            navigate('/login');
 
         } catch {
             setError('Faild to creat an account')

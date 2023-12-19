@@ -44,6 +44,7 @@ function Homepage() {
         return;
       }
     }
+
   }, [usersList])
 
   async function handleLogout() {
@@ -61,13 +62,11 @@ function Homepage() {
       {userType &&
         <div>
           <button onClick={handleLogout}>Log Out</button>
-          <h1>Homepage</h1>
+          {!userType && <h1>wating for data</h1>}
+          {/* <h1>Homepage</h1> */}
           {userType === Customer && <CustomerPage />}
           {userType === Store && <StorePage />}
           {userType === Delivery && <DeliveryPage />}
-
-          <h2>displayName:{currentUser.displayName}</h2>
-          <h2>Email:{currentUser.email}</h2>
 
         </div>}
     </>
