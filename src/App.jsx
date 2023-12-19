@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Homepage from './pages/Homepage/Homepage'
 import SignUp from './components/SignUp'
 import { useAuth } from './context/AuthContext'
+
 function App() {
   const { currentUser } = useAuth();
 

@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { auth, db } from '../config/firebase';
+import {getDocs,collection,addDoc} from 'firebase/firestore'
+
 
 
 function SignUp() {
@@ -13,17 +16,16 @@ function SignUp() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-
     const options = [
         'Customer',
         'Store',
         'Delivery'
     ];
-    const [selectedUser, setSelectedUser] = useState(options[0]);
-
+    const [selectedUserType, setSelectedUserType] = useState(options[0]);
+    const usersCollectionRef=collection(db,'users')
 
     const handleChange = event => {
-        setSelectedUser(event.target.value);
+        setSelectedUserType(event.target.value);
     };
 
     async function handleSubmit(e) {
@@ -39,8 +41,15 @@ function SignUp() {
                 displayName: userName
             };
             await updateUser(update);
+            const myDocumentData = {
+                userAuthId: auth.currentUser.uid,
+                userName: userName,
+                userType: selectedUserType
+              };
+            await addDoc(usersCollectionRef, myDocumentData);
 
             // handleUpdateUser();
+            console.log('SignUp before navigate!')
             navigate('/');
 
         } catch {
@@ -89,7 +98,7 @@ function SignUp() {
                 </div>
                 <div>
                     <label htmlFor="user-type">User Type:</label><br />
-                    <select id='user-type' value={selectedUser} onChange={handleChange}>
+                    <select id='user-type' value={selectedUserType} onChange={handleChange}>
                         {options.map((option, index) => (
                             <option key={index} value={option}>
                                 {option}
