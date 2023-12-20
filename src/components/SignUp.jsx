@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { auth, db } from '../config/firebase';
-import {getDocs,collection,addDoc} from 'firebase/firestore'
+import { getDocs, collection, addDoc } from 'firebase/firestore'
 
 
 
@@ -22,7 +22,8 @@ function SignUp() {
         'Delivery'
     ];
     const [selectedUserType, setSelectedUserType] = useState(options[0]);
-    const usersCollectionRef=collection(db,'users')
+    const usersCollectionRef = collection(db, 'users')
+    const storesCollectionRef = collection(db, 'Stores')
 
     const handleChange = event => {
         setSelectedUserType(event.target.value);
@@ -41,12 +42,33 @@ function SignUp() {
                 displayName: userName
             };
             await updateUser(update);
-            const myDocumentData = {
+            const newUserData = {
                 userAuthId: auth.currentUser.uid,
                 userName: userName,
                 userType: selectedUserType
-              };
-            await addDoc(usersCollectionRef, myDocumentData);
+            };
+            await addDoc(usersCollectionRef, newUserData);
+            switch (selectedUserType) {
+                case 'Store':
+                    const newStoreData = {
+                        authId: auth.currentUser.uid,
+                        name: userName,
+                        products: [],
+                        orders: [],
+                        deliveries: []
+                    }
+                    await addDoc(storesCollectionRef, newStoreData);
+                    break;
+                case 'Customer':
+
+                    break;
+                case 'Delivery':
+
+                    break;
+
+                default:
+                    break;
+            }
 
             // handleUpdateUser();
             console.log('SignUp before navigate!')
