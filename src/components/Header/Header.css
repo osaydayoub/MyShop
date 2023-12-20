@@ -1,0 +1,13 @@
+.Header {
+    padding: 20px;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(50,183,104);
+
+}
+.Header button{
+    font-size: larger;
+}

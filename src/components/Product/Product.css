@@ -1,0 +1,11 @@
+.product-container{
+border-radius: 20px;
+height: 200px;
+width: 200px;
+border: rgb(14,127,61) solid 2px;
+overflow: hidden;
+}
+.product-container img{
+    height: 50%;
+    width: 100%;
+}

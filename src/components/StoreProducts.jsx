@@ -2,7 +2,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { db } from '../../src/config/firebase';
 import { useAuth } from '../context/AuthContext';
-import Product from './Product';
+import Product from './Product/Product';
+
 
 function StoreProducts() {
     const { currentUser } = useAuth()
@@ -28,7 +29,6 @@ function StoreProducts() {
     }, [])
 
     useEffect(() => {
-        console.log(storesList);
         for (let i = 0; i < storesList.length; i++) {
             if (storesList[i].authId === currentUser.uid) {
                 setStoreData(storesList[i]);
@@ -39,15 +39,19 @@ function StoreProducts() {
     }, [storesList])
     return (
         <>
-            {storeData && <div>{storeData.name}</div>}
-            <h1>our productsList</h1>
-            <div>
+            < >
                 {
                     productsList.map((p,index)=>{
-                        return <Product key={index} name={p.name} price={p.price} imgUrl={p.imgUrl}/>
+                        return <Product 
+                        key={index} 
+                        name={p.name} 
+                        price={p.price} 
+                        imgUrl={p.imgUrl} 
+                        quantity={p.quantity}
+                        unit={p.unit}/>
                     })
                 }
-            </div>
+            </>
 
         </>
     )

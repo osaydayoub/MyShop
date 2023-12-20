@@ -1,0 +1,13 @@
+.Store-page-container{
+    gap: 100px;
+}
+.products-container {
+    width: 100%;
+    /* padding: 20px; */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: calc(30px);
+    border: saddlebrown solid 2px;
+}

@@ -7,7 +7,8 @@ import { getDocs, collection, addDoc } from 'firebase/firestore'
 
 
 
-function SignUp() {
+
+function SignUp({handle}) {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -82,12 +83,12 @@ function SignUp() {
     }
 
     return (
-        <div className="SignUp-container">
+        <div className="login-container">
             <h2>Sign Up</h2>
             {error && <div>{error}</div>}
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
-                    <label htmlFor="name">Name:</label><br />
+                    <label htmlFor="name">Name</label><br />
                     <input
                         type="text"
                         id='name'
@@ -95,7 +96,7 @@ function SignUp() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="email">Email:</label><br />
+                    <label htmlFor="email">Email</label><br />
                     <input
                         type="email"
                         id='email'
@@ -103,7 +104,7 @@ function SignUp() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="password">Password:</label><br />
+                    <label htmlFor="password">Password</label><br />
                     <input
                         type='password'
                         id='password'
@@ -111,7 +112,7 @@ function SignUp() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="password-Conform">Password Conformation:</label><br />
+                    <label htmlFor="password-Conform">Password Conformation</label><br />
                     <input
                         type='password'
                         id='password-Conform'
@@ -119,7 +120,7 @@ function SignUp() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="user-type">User Type:</label><br />
+                    <label htmlFor="user-type">User Type</label><br />
                     <select id='user-type' value={selectedUserType} onChange={handleChange}>
                         {options.map((option, index) => (
                             <option key={index} value={option}>
@@ -133,7 +134,7 @@ function SignUp() {
                 </div>
             </form>
 
-            <div>Already have an account?<Link to='/login'>Log In</Link> </div>
+            <div>Already have an account?<Link onClick={handle}>Log In</Link> </div>
         </div>
     )
 }

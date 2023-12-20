@@ -2,10 +2,23 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Anton', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 #root {
   width: 100%;
   min-height: 100vh;
 }
-
+.App {
+  width: 100%;
+  min-height: 100vh;
+}
+.page {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import '../pages/LoginPage/LoginPage.css'
+import loginImg from '../assets/img1.png'
 
-function Login() {
+function Login({handle}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { login } = useAuth();
@@ -24,12 +26,13 @@ function Login() {
     }
 
     return (
-        <div className="LogIn-container">
-            <h2>Log In</h2>
+        <div className="login-container">
+            <img className='img-login' src={loginImg} alt="champions-img" />
+            <h2>Welcome</h2>
             {error && <div>{error}</div>}
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
-                    <label htmlFor="email">Email:</label><br />
+                    <label htmlFor="email">Email</label><br />
                     <input
                         type="email"
                         id='email'
@@ -37,7 +40,7 @@ function Login() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="password">Password:</label><br />
+                    <label htmlFor="password">Password</label><br />
                     <input
                         type='password'
                         id='password'
@@ -45,13 +48,12 @@ function Login() {
                     />
                 </div>
 
-
                 <div>
                     <button disabled={loading} type='submit'>Login</button>
                 </div>
             </form>
 
-            <div>Need an account?<Link to='/signup'>Sign Up</Link> </div>
+            <div>Need an account?<Link onClick={handle}>Sign Up</Link> </div>
         </div>
     )
 }

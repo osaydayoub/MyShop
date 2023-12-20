@@ -22,19 +22,15 @@ export function AuthProvider({ children }) {
         return signOut(auth);
     }
     function updateUser(newData){
-        console.log('hello from updateUser');
         return updateProfile(auth.currentUser,newData);
     }
     useEffect(() => {
         const unSubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user);
             setLoading(false);
-            console.log('onAuthStateChanged');
-            console.log(user);
         })
         return unSubscribe;
     }, [])
-
 
     const value = {
         currentUser,
@@ -44,6 +40,7 @@ export function AuthProvider({ children }) {
         updateUser
     }
     return (
+        //add loading spinner
         <AuthContext.Provider value={value}>
             {!loading && children}
         </AuthContext.Provider>

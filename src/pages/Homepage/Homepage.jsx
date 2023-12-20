@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import CustomerPage from '../CustomerPage/CustomerPage';
 import DeliveryPage from '../DeliveryPage/DeliveryPage';
 import StorePage from '../StorePage/StorePage';
+import Header from '../../components/Header/Header';
 const [Customer, Store, Delivery] = ['Customer', 'Store', 'Delivery'];
 
 function Homepage() {
-  const { currentUser, logout } = useAuth()
-  const navigate = useNavigate();
+  const { currentUser } = useAuth()
+  // const navigate = useNavigate();
   const [usersList, setUsersList] = useState([]);
   const [userType, setuserType] = useState('');
   const usersCollectionRef = collection(db, 'users')
-
 
   async function getUsersList() {
     try {
@@ -44,24 +44,14 @@ function Homepage() {
         return;
       }
     }
-
   }, [usersList])
-
-  async function handleLogout() {
-    try {
-      await logout();
-      navigate('./login')
-    } catch {
-      console.log('failed to log out')
-    }
-  }
-
 
   return (
     <>
+      <Header />
       {userType &&
-        <div>
-          <button onClick={handleLogout}>Log Out</button>
+        <div className='page'>
+
           {!userType && <h1>wating for data</h1>}
           {/* <h1>Homepage</h1> */}
           {userType === Customer && <CustomerPage />}
