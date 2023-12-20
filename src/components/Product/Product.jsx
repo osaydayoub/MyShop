@@ -3,14 +3,15 @@ import './Product.css'
 function Product(data) {
   return (
     <div className='product-container'>
-        <img src={data.imgUrl} alt="img" />
+      <img src={data.imgUrl} alt="img" />
 
-        <h1>{data.name}</h1>
-        <div>
+      <h1>{data.name}</h1>
+      <div>
         <p>{`price ${data.price}₪`}</p>
 
-        <p>{ `quantity ${data.quantity} ${data.unit}`}</p>
-        </div>
+        <p>{`quantity ${data.quantity} ${data.unit}`}</p>
+      </div>
+      {/* <button>change</button> */}
     </div>
   )
 }

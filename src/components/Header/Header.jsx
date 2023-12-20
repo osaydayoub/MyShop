@@ -3,6 +3,8 @@ import './Header.css'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { GrLogout } from "react-icons/gr";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
 
 function Header() {
     const {currentUser,  logout } = useAuth()
@@ -17,7 +19,7 @@ function Header() {
       }
     return (
         <div className='Header'>
-            <h1>Store More +</h1>
+            <h1><AiOutlineShoppingCart /> Store More +</h1>
             <h1>{currentUser.displayName}</h1>
             <button onClick={handleLogout}>Log Out <GrLogout /></button>
             {/* <button onClick={handleLogout}>Log Out</button> */}
