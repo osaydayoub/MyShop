@@ -8,7 +8,7 @@ import { getDocs, collection, addDoc } from 'firebase/firestore'
 
 
 
-function SignUp({handle}) {
+function SignUp({ handle }) {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -73,8 +73,10 @@ function SignUp({handle}) {
 
             // handleUpdateUser();
             console.log('SignUp before navigate!')
-            navigate('/login');
+            //navigate('/');
 
+            //move to login instead?
+            handle();
         } catch {
             setError('Faild to creat an account')
         }
@@ -133,7 +135,6 @@ function SignUp({handle}) {
                     <button disabled={loading} type='submit'>Sign Up</button>
                 </div>
             </form>
-
             <div>Already have an account?<Link onClick={handle}>Log In</Link> </div>
         </div>
     )

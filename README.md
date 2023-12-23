@@ -1,8 +1,10 @@
-# React + Vite
+# Store More +
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This app service 3 type of users, customer, store, delivery. 
+its an online shopping app. 
+you have to sign up to get an access to the app.
+when sign up you can choose which type of user you want.
 
-Currently, two official plugins are available:
+- website : https://store-more.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![alt text](./src/assets/SignUpScreenshot.png)

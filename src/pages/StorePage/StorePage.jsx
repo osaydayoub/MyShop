@@ -56,7 +56,6 @@ function StorePage() {
     console.log(storeAuthId);
     const newlist = [...productsList, newProduct];
     console.log(newlist);
-
     setProductsList(newlist);
     updateProductList(storeAuthId, newlist);
   }

@@ -4,6 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
 
+
 export const DataContext = createContext();
 
 export function useData() {
@@ -11,45 +12,96 @@ export function useData() {
 }
 
 export function DataProvider({ children }) {
+    const [Customer, Store, Delivery] = ['Customer', 'Store', 'Delivery'];
     const { currentUser } = useAuth();
-    const [loading, setLoading] = useState(true);
+    const [usersList, setUsersList] = useState([]);
+    const [currentUserType, setCurrentUserType] = useState("");
+
     const [currentStoreData, setCurrentStoreData] = useState();
+    const [CurrentStoreAuthId, setCurrentStoreAuthId] = useState("");
     const [productsList, setProductsList] = useState([]);
     const [storesList, setStoresList] = useState([]);
 
     const storesCollectionRef = collection(db, 'Stores');
+    const usersCollectionRef = collection(db, 'users');
 
-    async function getStorseList() {
+    async function getUsersList() {
         try {
-            const data = await getDocs(storesCollectionRef)
-            const storeslist = data.docs.map((doc) => ({
+            const data = await getDocs(usersCollectionRef)
+            const userslist = data.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id,
             }));
-            setStoresList(storeslist);
+            setUsersList(userslist);
         } catch (err) {
             console.log(err);
         }
     }
-    useEffect(() => {
-        getStorseList();
-    }, [userType])
 
     useEffect(() => {
-        for (let i = 0; i < storesList.length; i++) {
-            if (storesList[i].authId === currentUser.uid) {
-                setCurrentStoreData(storesList[i]);
-                setProductsList(storesList[i].products)
-                break;
+        getUsersList();
+    }, [])
+
+   
+    useEffect(() => {
+        for (let i = 0; i < usersList.length; i++) {
+            if (usersList[i].userAuthId === currentUser?.uid) {
+                setCurrentUserType(usersList[i].userType);
+                return;
             }
         }
-    }, [storesList])
+    }, [usersList,currentUser])
+
+    useEffect(() => {
+        if (currentUserType === Store) {
+            const storesListForSave = [];
+            async function getStorseList() {
+                try {
+                    const data = await getDocs(storesCollectionRef)
+                    const newStoreslist = data.docs.map((doc) => ({
+                        ...doc.data(),
+                        id: doc.id,
+                    }));
+                    storesListForSave = newStoreslist;
+                    setStoresList(newStoreslist);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            getStorseList();
+            for (let i = 0; i < storesListForSave.length; i++) {
+                if (storesListForSave[i].authId === currentUser?.uid) {
+                    setCurrentStoreData(storesListForSave[i]);
+                    setProductsList(storesListForSave[i].products)
+                    setCurrentStoreAuthId(storesListForSave[i].id);
+                    break;
+                }
+            }
+        }
+
+    }, [currentUserType])
+
+
+    async function updateProductList(storeAuthId, newlist) {
+        console.log('hi from updateProductList ')
+        const StoreDoc = doc(db, "Stores", storeAuthId);
+        console.log(newlist);
+        await updateDoc(StoreDoc, { products: newlist });
+    };
+
+    function handleAddProduct(newProduct, storeAuthId) {
+        const newlist = [...productsList, newProduct];
+        setProductsList(newlist);
+        updateProductList(storeAuthId, newlist);
+    }
 
     const value = {
+        currentUserType,
+        setCurrentUserType,
         currentStoreData,
         storesList,
         productsList,
-        // getStores,
+        handleAddProduct,
         // getProducts,
         // logout,
         // updateUser

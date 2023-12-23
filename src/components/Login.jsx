@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 import '../pages/LoginPage/LoginPage.css'
 import loginImg from '../assets/img1.png'
 
-function Login({handle}) {
+function Login({ handle }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { login } = useAuth();
+    const { changeCurrentUserType } = useAuth
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ function Login({handle}) {
             setError('');
             setLoading(true);
             await login(email, password);
+            // changeCurrentUserType();
             navigate('/');
         } catch {
             setError('Faild to login')
