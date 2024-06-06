@@ -1,6 +1,6 @@
 # Store More +
 
-Store More + is an online shopping app catering to three types of users: customers, stores, and delivery personnel. To access the app, users must sign up and select their user type.
+Store More + is an online shopping app designed for three types of users: customers, stores, and delivery personnel. To access the app, users must sign up and select their user type.
 
 ## Features
 - **Customer:** Browse and purchase products from various stores.
