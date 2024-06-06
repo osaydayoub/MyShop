@@ -6,6 +6,9 @@ Store More + is an online shopping app catering to three types of users: custome
 - **Customer:** Browse and purchase products from various stores.
 - **Store:** List and manage products, track orders.
 - **Delivery:** View and manage delivery tasks.
+  
+## Current Status
+Right now, only the store type user is partially functional. The other user types (customers and delivery) will be completed in the future.
 
 ## Getting Started
 To get started with Store More +, sign up and choose your user type.
